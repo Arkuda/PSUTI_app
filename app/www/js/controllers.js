@@ -1,3 +1,5 @@
+var isDebug = true;
+
 angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
@@ -42,17 +44,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('NewsController', function($scope, $http){
-  var res = 0;
-  $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' +
-  'http://fist.psuti.ru/index.php?format=feed&type=rss').
-    success(function(data){
-    $scope.rss = data.responseData;
-    console.log(data);
-    }).
-  error(function(err){
-      console.log(err);
-    });
-
+  loadNews($http,'http://fist.psuti.ru/index.php?format=feed&type=rss',function(data){
+    $scope.rss = data;
+  });
 })
 
 .controller('PlaylistsCtrl', function($scope) {
@@ -73,3 +67,48 @@ angular.module('starter.controllers', [])
     return $sce.trustAsHtml(val);
   };
 });
+////UTILITES//////UTILITES////////UTILITES////////UTILITES//////
+
+function log(text){
+  if(isDebug){
+    console.log(text);
+  }
+}
+
+function checkInternet(yesCall,notCall){
+  if (typeof(navigator.connection) == "undefined")
+  {
+    yesCall();
+    return;
+  }else {
+    var networkState = navigator.connection.type;
+    if( networkState != Connection.NONE)
+    {
+      log('have internet');
+      yesCall();
+    }
+    else{
+      log('dont have internet');
+      notCall();
+    }
+  }
+
+}
+
+function loadNews($http,url,callback){
+  checkInternet(function(){
+    //*****have***////
+    $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' +
+      url).
+    success(function(data){
+      localStorage.setItem(url,data.responseData);
+      callback(data.responseData);
+    }).
+    error(function(err){
+      log(err);
+    });
+  },function(){
+    //nothave
+    callback(localStorage.getItem(url));
+  })
+}
