@@ -4,8 +4,14 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers'])
-
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+  .constant('ApiEndpoint', {
+    url: 'http://localhost:8100/api'
+  })
+  // For the real endpoint, we'd use this
+  // .constant('ApiEndpoint', {
+  //  url: 'http://cors.api.com/api'
+  // })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -47,6 +53,24 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         'menuContent': {
           templateUrl: 'templates/news.html',
           controller: 'NewsController'
+        }
+      }
+    })
+    .state('app.vektors', {
+      url: '/vektors',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/vektors.html',
+          controller: 'VektorCotroller'
+        }
+      }
+    })
+    .state('app.vektorsCorrect', {
+      url: '/vektors/:id',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/vektorsCorrect.html',
+          controller: 'VektorCotrollerd'
         }
       }
     })

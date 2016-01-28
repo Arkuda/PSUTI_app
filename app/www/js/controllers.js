@@ -45,7 +45,23 @@ angular.module('starter.controllers', [])
 
 .controller('NewsController', function($scope, $http){
   loadNews($http,'http://fist.psuti.ru/index.php?format=feed&type=rss',function(data){
-    $scope.rss = data;
+    $scope.rss = data.responseData;
+  });
+})
+.controller('VektorCotroller', function($scope, $http){
+  loadUrlData($http,'http://abitur.psuti.ru/api/get_specialty_section_list.php',function(data){
+    $scope.data = data;
+  });
+})
+
+.controller('VektorCotrollerd', function($scope,$http, $stateParams) {
+  loadUrlData($http,'https://abitur.psuti.ru/api/get_specialty_list.php',function(data){
+  var dataresult = [];
+    for(var i = 1; i < data.length;i++){
+      if(data[i].sid = $stateParams.id)
+      dataresult.push(data[i]);
+    }
+    $scope.data = dataresult;
   });
 })
 
@@ -61,6 +77,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+
 })
   .filter('unsafe', function($sce) {
   return function(val) {
@@ -101,8 +118,27 @@ function loadNews($http,url,callback){
     $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' +
       url).
     success(function(data){
-      localStorage.setItem(url,data.responseData);
-      callback(data.responseData);
+      localStorage.setItem(url,data);
+      callback(data);
+    }).
+    error(function(err){
+      log(err);
+    });
+  },function(){
+    //nothave
+    callback(localStorage.getItem(url));
+  })
+}
+
+function loadUrlData($http,url,callback){
+  checkInternet(function(){
+    //*****have***////
+    $http.get(url).
+    success(function(data){
+      localStorage.setItem(url,data);
+      log(url);
+      log(data);
+      callback(data);
     }).
     error(function(err){
       log(err);

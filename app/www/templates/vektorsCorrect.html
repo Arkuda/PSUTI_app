@@ -1,0 +1,29 @@
+<ion-view view-title="Направления подготовки">
+  <ion-content>
+
+    <div class="card">
+      Обозначения количества мест: <br/>
+      <i class="ion-ribbon-b"></i>Бюджетное место<br/>
+      <i class="ion-hammer"></i>Целевое место <br/>
+      <i class="ion-cash"></i>Платное место<br/>
+    </div>
+
+    <div class="list">
+
+      <a class="item item-thumbnail-left" href="#" ng-repeat="item in data">
+        <img src="{{item.thumbnail}}">
+        <h2>{{item.title}}</h2>
+        <p>Код специальности:</p> {{item.code}}<br/>
+        <p>Количество мест:</p> <br>
+        <i class="ion-ribbon-b"></i>{{item.free}} <i class="ion-hammer"></i>{{item.reserved}} <i class="ion-cash"></i>{{item.paid}}<br/>
+        <p>Экзамены: <p ng-repeat="exam in item.exams">{{exam}}</p><br/>
+        <p>Цена за семестр: {{item.price}}</p><br/>
+      </a>
+
+    </div>
+
+
+
+
+  </ion-content>
+</ion-view>

@@ -1,4 +1,10 @@
 {
-  "name": "app",
-  "app_id": ""
+  "name": "PSUTI",
+  "app_id": "693ea3de",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://cors.api.com/api"
+    }
+  ]
 }

@@ -1,0 +1,13 @@
+<ion-view view-title="Направления подготовки">
+  <ion-content>
+    <div class="list" >
+        <div class="card" >
+          <div class="item item-text-wrap" ng-repeat="item in data">
+            <a class="button button-block button-positive"  href="#/app/vektors/{{item.id}}">
+              {{item.title}}
+            </a>
+          </div>
+        </div>
+    </div>
+  </ion-content>
+</ion-view>
