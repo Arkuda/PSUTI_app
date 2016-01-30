@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'datefilter'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'datefilter','ngCordova'])
   .constant('ApiEndpoint', {
     url: 'http://localhost:8100/api'
   })

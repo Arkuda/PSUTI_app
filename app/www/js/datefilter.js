@@ -3,13 +3,13 @@ angular.module('datefilter', []).filter('datefilter', function() {
     //Mon, 28 Dec 2015 11:20:00 -0800
     //  0 |1 | 2 |  3 |    4   |  5
     //jan - feb - mar - apr - may - jun - jul - aug - sep - oct - nov - dec
-    
+
     var mass=  input.split(' ');
     var result  = [];
     result[0] = mass[1];
     result[2] = mass[3];
     result[3] = mass[4];
-    log(mass);
+
     switch (mass[2])
     {
       case 'Jan': result[1] = 'янв'; break;

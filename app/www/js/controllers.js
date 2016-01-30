@@ -1,4 +1,4 @@
-var isDebug = true;
+var debug = true;
 
 angular.module('starter.controllers', [])
 
@@ -43,8 +43,8 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('NewsController', function($scope, $http){
-  loadNews($http,'http://fist.psuti.ru/index.php?format=feed&type=rss',function(data){
+.controller('NewsController', function($scope, $http,$cordovaNetwork){
+  loadNews($http,$cordovaNetwork,'http://fist.psuti.ru/index.php?format=feed&type=rss',function(data){
     $scope.rss = data.responseData;
   });
 
@@ -52,14 +52,14 @@ angular.module('starter.controllers', [])
   ///FIST - http://fist.psuti.ru/index.php?format=feed&type=rss
   ///
 })
-.controller('VektorCotroller', function($scope, $http){
-  loadUrlData($http,'http://abitur.psuti.ru/api/get_specialty_section_list.php',function(data){
+.controller('VektorCotroller', function($scope, $http,$cordovaNetwork){
+  loadUrlData($http,$cordovaNetwork,'http://abitur.psuti.ru/api/get_specialty_section_list.php',function(data){
     $scope.data = data;
   });
 })
 
-.controller('VektorCotrollerd', function($scope,$http, $stateParams) {
-  loadUrlData($http,'https://abitur.psuti.ru/api/get_specialty_list.php',function(data){
+.controller('VektorCotrollerd', function($scope,$http, $stateParams,$cordovaNetwork) {
+  loadUrlData($http,$cordovaNetwork,'https://abitur.psuti.ru/api/get_specialty_list.php',function(data){
   var dataresult = [];
     for(var i = 1; i < data.length;i++){
       if(data[i].sid = $stateParams.id)
@@ -90,65 +90,62 @@ angular.module('starter.controllers', [])
 });
 ////UTILITES//////UTILITES////////UTILITES////////UTILITES//////
 
-function log(text){
-  if(isDebug){
-    console.log(text);
-  }
-}
 
-function checkInternet(yesCall,notCall){
-  if (typeof(navigator.connection) == "undefined")
+
+function checkInternet($http,$cordovaNetwork,yesCall,notCall){
+  var device = ionic.Platform.platform();
+  console.log(device);
+  if(device == 'win32')
   {
     yesCall();
     return;
-  }else {
-    var networkState = navigator.connection.type;
-    if( networkState != Connection.NONE)
-    {
-      log('have internet');
+  }else{
+    if($cordovaNetwork.isOnline()){
+      if(debug) console.log('have internet');
       yesCall();
-    }
-    else{
-      log('dont have internet');
+    }else if($cordovaNetwork.isOffline()){
+      if(debug) console.log('dont have internet');
       notCall();
     }
+    else notCall();
   }
 
 }
 
-function loadNews($http,url,callback){
-  checkInternet(function(){
+function loadNews($http,$cordovaNetwork,url,callback){
+  checkInternet($http,$cordovaNetwork,function(){
     //*****have***////
     $http.jsonp('http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=50&callback=JSON_CALLBACK&q=' +
       url).
     success(function(data){
-      localStorage.setItem(url,data);
+      localStorage.setItem(url,JSON.stringify(data));
       callback(data);
     }).
     error(function(err){
-      log(err);
+      if(debug) console.log(err);
     });
   },function(){
     //nothave
-    callback(localStorage.getItem(url));
+    var data = localStorage.getItem(JSON.parse(url));
+    callback(data);
   })
 }
 
-function loadUrlData($http,url,callback){
-  checkInternet(function(){
+function loadUrlData($http,$cordovaNetwork,url,callback){
+  checkInternet($http,$cordovaNetwork,function(){
     //*****have***////
     $http.get(url).
     success(function(data){
-      localStorage.setItem(url,data);
-      log(url);
-      log(data);
+      localStorage.setItem(url,JSON.stringify(data));
       callback(data);
     }).
     error(function(err){
-      log(err);
+      if(debug) console.log(err);
     });
   },function(){
     //nothave
-    callback(localStorage.getItem(url));
+    var data = localStorage.getItem(url);
+
+    callback(JSON.parse(data));
   })
 }
