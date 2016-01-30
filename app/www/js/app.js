@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'datefilter'])
   .constant('ApiEndpoint', {
     url: 'http://localhost:8100/api'
   })
@@ -71,6 +71,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         'menuContent': {
           templateUrl: 'templates/vektorsCorrect.html',
           controller: 'VektorCotrollerd'
+        }
+      }
+    }).state('app.commis', {
+      url: '/commis',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/commis.html'
+        }
+      }
+    }).state('app.map', {
+      url: '/map',
+      views: {
+        'menuContent': {
+          templateUrl: 'templates/map.html'
         }
       }
     })

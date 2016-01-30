@@ -47,6 +47,10 @@ angular.module('starter.controllers', [])
   loadNews($http,'http://fist.psuti.ru/index.php?format=feed&type=rss',function(data){
     $scope.rss = data.responseData;
   });
+
+  ///FBTO - http://fbto.psuti.ru/feeds/fbto.rss
+  ///FIST - http://fist.psuti.ru/index.php?format=feed&type=rss
+  ///
 })
 .controller('VektorCotroller', function($scope, $http){
   loadUrlData($http,'http://abitur.psuti.ru/api/get_specialty_section_list.php',function(data){

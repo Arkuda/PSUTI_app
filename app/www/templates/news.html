@@ -1,14 +1,21 @@
 <ion-view view-title="Новости ФИСТ">
   <ion-content>
-    <div class="list" >
-        <div class="card" ng-repeat="itemz in rss.feed.entries">
-          <div class="item item-text-wrap">
-          <a class="item" href="{{itemz.link}}"  >
-            <h2>{{itemz.title}}</h2>
-            <p ng-bind-html="itemz.content | unsafe"></p>
-          </a>
-          </div>
-        </div>
+
+
+
+    <div class="list card" ng-repeat="itemz in rss.feed.entries">
+
+      <div class="item">
+        <h2>{{itemz.author}}</h2>
+        <p>{{itemz.publishedDate | datefilter }}</p>
+        <h3>{{itemz.title}}</h3>
+      </div>
+
+      <div class="item item-body">
+        <p ng-bind-html="itemz.content | unsafe"></p>
+      </div>
+
     </div>
+
   </ion-content>
 </ion-view>
