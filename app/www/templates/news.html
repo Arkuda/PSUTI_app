@@ -1,6 +1,11 @@
-<ion-view view-title="Новости ФИСТ">
-  <ion-content>
+<ion-view view-title="Новости" >
 
+  <ion-content>
+    <div class="button-bar">
+      <button class="button  button-positive" ng-click="newsFbto()">ФБТО</button>
+      <button class="button  button-stable" ng-click="">ФЗО</button>
+      <button class="button  button-calm" ng-click="newsFist()">ФИСТ</button>
+    </div>
     <div class="list card" ng-repeat="itemz in rss.feed.entries">
 
       <div class="item">

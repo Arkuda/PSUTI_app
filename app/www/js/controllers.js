@@ -1,4 +1,7 @@
 var debug = true;
+var newsSelected = false;
+
+
 
 angular.module('starter.controllers', [])
 
@@ -43,22 +46,71 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('NewsController', function($scope, $http,$cordovaNetwork){
-  loadNews($http,$cordovaNetwork,'http://fist.psuti.ru/index.php?format=feed&type=rss',function(data){
-    $scope.rss = data.responseData;
-  });
+.controller('NewsController', function($scope, $http,$cordovaNetwork,$ionicLoading){
+  $scope.newsFist = function(){
+    $ionicLoading.show({
+      content: 'Loading',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+    loadNews($http,$cordovaNetwork,'http://fist.psuti.ru/index.php?format=feed&type=rss',function(data){
+    var dataredy = data.responseData;
+    dataredy.feed.entries.shift();
+    $scope.rss = dataredy;
+    $ionicLoading.hide();
+    newsSelected = 'fist';
+  });};
 
+  $scope.newsFbto = function(){
+    $ionicLoading.show({
+      content: 'Loading',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 0
+    });
+    loadNews($http,$cordovaNetwork,'http://fbto.psuti.ru/feeds/fbto.rss',function(data){
+    $scope.rss = data.responseData;
+    $ionicLoading.hide();
+    newsSelected = 'fbto';
+  });};
+
+  if(newsSelected == 'fist'){
+    $scope.newsFist();
+  }else if (newsSelected  == 'fbto'){
+    $scope.newsFbto();
+  }else if(!newsSelected || newsSelected == '')
+  {
+    $scope.newsFist();
+  }
   ///FBTO - http://fbto.psuti.ru/feeds/fbto.rss
   ///FIST - http://fist.psuti.ru/index.php?format=feed&type=rss
   ///
 })
-.controller('VektorCotroller', function($scope, $http,$cordovaNetwork){
+.controller('VektorCotroller', function($scope, $http,$cordovaNetwork,$ionicLoading){
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   loadUrlData($http,$cordovaNetwork,'http://abitur.psuti.ru/api/get_specialty_section_list.php',function(data){
     $scope.data = data;
+    $ionicLoading.hide();
   });
 })
 
-.controller('VektorCotrollerd', function($scope,$http, $stateParams,$cordovaNetwork) {
+.controller('VektorCotrollerd', function($scope,$http, $stateParams,$cordovaNetwork,$ionicLoading) {
+  $ionicLoading.show({
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
   loadUrlData($http,$cordovaNetwork,'https://abitur.psuti.ru/api/get_specialty_list.php',function(data){
   var dataresult = [];
     for(var i = 1; i < data.length;i++){
@@ -66,6 +118,7 @@ angular.module('starter.controllers', [])
       dataresult.push(data[i]);
     }
     $scope.data = dataresult;
+    $ionicLoading.hide();
   });
 })
 
@@ -100,14 +153,16 @@ function checkInternet($http,$cordovaNetwork,yesCall,notCall){
     yesCall();
     return;
   }else{
+    console.log(navigator);
+    console.log($cordovaNetwork);
     if($cordovaNetwork.isOnline()){
       if(debug) console.log('have internet');
       yesCall();
-    }else if($cordovaNetwork.isOffline()){
+    }else {
       if(debug) console.log('dont have internet');
       notCall();
     }
-    else notCall();
+    //else notCall();
   }
 
 }
@@ -126,8 +181,8 @@ function loadNews($http,$cordovaNetwork,url,callback){
     });
   },function(){
     //nothave
-    var data = localStorage.getItem(JSON.parse(url));
-    callback(data);
+    var data = localStorage.getItem(url);
+    callback(JSON.parse(data));
   })
 }
 
@@ -145,7 +200,6 @@ function loadUrlData($http,$cordovaNetwork,url,callback){
   },function(){
     //nothave
     var data = localStorage.getItem(url);
-
     callback(JSON.parse(data));
   })
 }
