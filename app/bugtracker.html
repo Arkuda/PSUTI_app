@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="bt">
+<head>
+  <script src="https://cdn.firebase.com/js/client/2.4.0/firebase.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Bug Tracker</title>
+</head>
+<body ng-controller="mainctrl" >
+<div  ng-repeat="n in notes">
+  app: {{n.app}} <br/>
+  app: {{n.haveInternet}} <br/>
+  app: {{n.message}} <br/>
+  app: {{n.path}} <br/>
+  app: {{n.time}} <br/>
+  app: {{n.ua}} <br/><br/><br/>
+
+
+</div>
+<script>
+  var snp;
+  var app = angular.module('bt', []);
+  app.controller('mainctrl', function($scope) {
+    var fb = new Firebase("https://arkbugtrack.firebaseIO.com");
+    fb.once('value',function(snapshot) {
+       snp = snapshot.val();
+      $scope.notes = snapshot.val().error;
+    });
+
+  });
+</script>
+</body>
+</html>
