@@ -1,13 +1,19 @@
 <ion-view view-title="Направления подготовки">
   <ion-content>
-    <div class="list" >
-        <div class="card" >
-          <div class="item item-text-wrap" ng-repeat="item in data">
-            <a class="button button-block button-positive"  href="#/app/vektors/{{item.id}}">
-              {{item.title}}
-            </a>
+      <!--<ul class="list">
+        <li class="item" ng-repeat="item in data">
+          <div class="card button-positive"  >
+             <a class="card item button-positive"  href="#/app/vektors/{{item.id}}" >
+               {{item.title}}
+             </a>
           </div>
-        </div>
+        </li>
+      </ul>-->
+    <div class="item item-divider">Выберите раздел</div>
+    <div class="list" >
+      <a class="item item-text-wrap"  href="#/app/vektors/{{item.id}}" ng-repeat="item in data">
+        {{item.title}}
+      </a>
     </div>
   </ion-content>
 </ion-view>

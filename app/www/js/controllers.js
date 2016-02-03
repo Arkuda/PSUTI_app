@@ -104,7 +104,7 @@ angular.module('starter.controllers', [])
 })
 
 .controller('VektorCotrollerd', function($scope,$http, $stateParams,$cordovaNetwork,$ionicLoading) {
-  dasdad();
+
   $ionicLoading.show({
     content: 'Loading',
     animation: 'fade-in',
