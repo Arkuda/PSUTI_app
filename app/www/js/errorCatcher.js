@@ -51,7 +51,7 @@ function generateErrorLog(val){
   console.log(error);
   return error;
 }
-
+/*
 console.log = function(value) {
   logMessages.push(value);
   logBak.call(console, value);
@@ -62,7 +62,7 @@ console.error = function(value) {
   sendError(value);
   errBak.call(console, value);
 };
-
+*/
 var isOnline = function () {
     var networkState = navigator.connection.type;
     return networkState !== Connection.UNKNOWN && networkState !== Connection.NONE;

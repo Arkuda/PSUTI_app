@@ -103,6 +103,41 @@ angular.module('starter.controllers', [])
   });
 })
 
+.controller('commisController',function($scope, $cordovaInAppBrowser){
+  $scope.mapShow = function(){
+    var device = ionic.Platform.platform();
+    if(device === 'ios') {
+      appAvailability.check(
+        'geo://', // URI Scheme
+        function() {  // Success callback
+          window.open('geo://53.2268255,50.199395', '_system', 'location=no');
+          console.log('map is available');
+        },
+        function() {  // Error callback
+          window.open('https://www.google.ru/maps/place/53%C2%B013\'32.2%22N+50%C2%B011\'38.5%22E/@53.225618,50.1918423,17z/data=!3m1!4b1!4m2!3m1!1s0x0:0x0', '_system', 'location=no');
+          console.log('map is not available');
+        }
+      );
+    }
+    else if(device === 'android') {
+      appAvailability.check(
+        'geo://', // URI Scheme
+        function() {  // Success callback
+          window.open('geo://53.2268255,50.199395', '_system', 'location=no');
+          console.log('map is available');
+        },
+        function() {  // Error callback
+          window.open('https://www.google.ru/maps/place/53%C2%B013\'32.2%22N+50%C2%B011\'38.5%22E/@53.225618,50.1918423,17z/data=!3m1!4b1!4m2!3m1!1s0x0:0x0', '_system', 'location=no');
+          console.log('map is not available');
+        }
+      );
+    }else{
+      window.open('https://www.google.ru/maps/place/53%C2%B013\'32.2%22N+50%C2%B011\'38.5%22E/@53.225618,50.1918423,17z/data=!3m1!4b1!4m2!3m1!1s0x0:0x0', '_system', 'location=no');
+    }
+  };
+
+})
+
 .controller('VektorCotrollerd', function($scope,$http, $stateParams,$cordovaNetwork,$ionicLoading) {
 
   $ionicLoading.show({

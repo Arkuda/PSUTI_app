@@ -77,14 +77,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       url: '/commis',
       views: {
         'menuContent': {
-          templateUrl: 'templates/commis.html'
-        }
-      }
-    }).state('app.map', {
-      url: '/map',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/map.html'
+          templateUrl: 'templates/commis.html',
+          controller: 'commisController'
         }
       }
     })

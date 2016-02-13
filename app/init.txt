@@ -1,0 +1,7 @@
+cordova plugin add cordova-plugin-network-information
+cordova plugin add cordova-plugin-appavailability
+cordova plugin add com.lampa.startapp
+cordova plugin add cordova-plugin-inappbrowser
+cordova plugin add org.apache.cordova.device
+
+//bower install --save-dev ionic-platform-web-client
