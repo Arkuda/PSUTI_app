@@ -11,11 +11,12 @@
       <button class="button  button-stable" ng-click="">ФЗО</button>
       <button class="button  button-calm" ng-click="newsFist()">ФИСТ</button>
     </div>-->
-    <div class="list card" ng-repeat="itemz in rss.feed.entries">
+    <div class="list card" ng-repeat="itemz in rss">
 
       <div class="item">
         <h2>{{itemz.author}}</h2>
-        <p>{{itemz.publishedDate | datefilter }}</p>
+        <p ng-if="newsSelected != 'ФЗО'">{{itemz.publishedDate | datefilter }}</p>
+        <p ng-if="newsSelected == 'ФЗО'">{{itemz.publishedDate}}</p>
         <h3>{{itemz.title}}</h3>
       </div>
 
