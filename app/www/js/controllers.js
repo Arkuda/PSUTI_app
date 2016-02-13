@@ -46,57 +46,84 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('NewsController', function($scope, $http,$cordovaNetwork,$ionicLoading){
+.controller('NewsController', function($scope, $http,$cordovaNetwork,$ionicLoading,$ionicPopover){
+
+
+  var template = '<ion-popover-view><ion-header-bar>' +
+    ' <h1 class="title">Выбор факультета</h1>' +
+    ' </ion-header-bar> <ion-content>' +
+    '<button class="button button-full button-positive" ng-click="newsFbto();closePopover();">ФБТО</button> <br/>'+
+    '<button class="button button-full button-stable" ng-click="closePopover();">ФЗО</button> <br/>'+
+    '<button class="button button-full button-calm" ng-click="newsFist();closePopover()">ФИСТ</button> <br/>' +
+    '</ion-content></ion-popover-view>';
+
+  $scope.popover = $ionicPopover.fromTemplate(template, {
+    scope: $scope
+  });
+
+  $scope.openPopover = function($event) {
+    $scope.popover.show($event);
+  };
+  $scope.closePopover = function() {
+    $scope.popover.hide();
+  };
+  //Cleanup the popover when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.popover.remove();
+  });
+  // Execute action on hide popover
+  $scope.$on('popover.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove popover
+  $scope.$on('popover.removed', function() {
+    // Execute action
+  });
+
+
   $scope.newsFist = function(){
-    $ionicLoading.show({
-      content: 'Loading',
-      animation: 'fade-in',
-      showBackdrop: true,
-      maxWidth: 200,
-      showDelay: 0
-    });
+    showLoad($ionicLoading);
     loadNews($http,$cordovaNetwork,'http://fist.psuti.ru/index.php?format=feed&type=rss',function(data){
     var dataredy = data.responseData;
     dataredy.feed.entries.shift();
     $scope.rss = dataredy;
     $ionicLoading.hide();
     newsSelected = 'fist';
+      showName();
+
   });};
 
   $scope.newsFbto = function(){
-    $ionicLoading.show({
-      content: 'Loading',
-      animation: 'fade-in',
-      showBackdrop: true,
-      maxWidth: 200,
-      showDelay: 0
-    });
+    showLoad($ionicLoading);
     loadNews($http,$cordovaNetwork,'http://fbto.psuti.ru/feeds/fbto.rss',function(data){
     $scope.rss = data.responseData;
     $ionicLoading.hide();
     newsSelected = 'fbto';
+      showName();
+
   });};
 
+  function showName(){
+    switch (newsSelected){
+      case 'fist': $scope.newsSelected = 'ФИСТ'; break;
+      case 'fbto': $scope.newsSelected = 'ФБТО';break;
+      case 'fzo': $scope.newsSelected = 'ФЗО';break;
+    }
+  }
   if(newsSelected == 'fist'){
     $scope.newsFist();
   }else if (newsSelected  == 'fbto'){
     $scope.newsFbto();
-  }else if(!newsSelected || newsSelected == '')
-  {
+  }else if(!newsSelected || newsSelected == '') {
     $scope.newsFist();
   }
+
   ///FBTO - http://fbto.psuti.ru/feeds/fbto.rss
   ///FIST - http://fist.psuti.ru/index.php?format=feed&type=rss
   ///
 })
 .controller('VektorCotroller', function($scope, $http,$cordovaNetwork,$ionicLoading){
-  $ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
-  });
+  showLoad($ionicLoading);
   loadUrlData($http,$cordovaNetwork,'http://abitur.psuti.ru/api/get_specialty_section_list.php',function(data){
     $scope.data = data;
     $ionicLoading.hide();
@@ -140,13 +167,7 @@ angular.module('starter.controllers', [])
 
 .controller('VektorCotrollerd', function($scope,$http, $stateParams,$cordovaNetwork,$ionicLoading) {
 
-  $ionicLoading.show({
-    content: 'Loading',
-    animation: 'fade-in',
-    showBackdrop: true,
-    maxWidth: 200,
-    showDelay: 0
-  });
+  showLoad($ionicLoading);
   loadUrlData($http,$cordovaNetwork,'https://abitur.psuti.ru/api/get_specialty_list.php',function(data){
   var dataresult = [];
     for(var i = 1; i < data.length;i++){
@@ -238,4 +259,15 @@ function loadUrlData($http,$cordovaNetwork,url,callback){
     var data = localStorage.getItem(url);
     callback(JSON.parse(data));
   })
+}
+
+function showLoad($ionicLoading){
+  $ionicLoading.show({
+    template: '<div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>',
+    content: 'Loading',
+    animation: 'fade-in',
+    showBackdrop: true,
+    maxWidth: 200,
+    showDelay: 0
+  });
 }
