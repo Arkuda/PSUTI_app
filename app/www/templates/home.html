@@ -1,47 +1,60 @@
 <ion-view view-title="Главная">
   <ion-content>
+
     <div class="row ">
-      <div class="col col-25"></div>
-      <div class="col col-25">
-        <div class="card">
-           <img src="img/news.jpg" width="100%" />
-           <button class="button button-full button-clear">НОВОСТИ</button>
-        </div>
+      <div class="col">
+        <img src="img/logo.jpg" width="100%" />
       </div>
-      <div class="col col-25 ">
-        <div class="card">
-           <img src="img/psuti.jpg" width="100%" />
-           <button class="button button-full button-clear">ИНФОРМАЦИЯ О ВУЗЕ</button>
-        </div>
+    </div>
+    <div class="row ">
+      <div class="col col-50">
+        <a href="#/app/news">
+          <div class="card" >
+             <img src="img/news.jpg" width="100%" />
+             <div class="item item-text-wrap" >НОВОСТИ </div></br>
+          </div>
+        </a>
+      </div>
+      <div class="col col-50 ">
+        <a href="#/app/news">
+           <div class="card">
+             <img src="img/psuti.jpg" width="100%" />
+               <div class="item item-text-wrap">
+                 ИНФОРМАЦИЯ О ВУЗЕ
+               </div>
+          </div>
+        </a>
        </div>
     </div>
     <div class="row ">
-      <div class="col col-25"></div>
-      <div class="col col-25">
-        <div class="card">
-           <img src="img/commiss.jpg" width="100%" />
-           <button class="button button-full button-clear">ПРИЕМНАЯ КОМИССИЯ</button>
-        </div>
+      <div class="col col-50">
+        <a href="#/app/commis">
+          <div class="card">
+             <img src="img/commiss.jpg" width="100%" />
+             <div class="item item-text-wrap">ПРИЕМНАЯ КОМИССИЯ</div>
+          </div>
+        </a>
       </div>
-      <div class="col col-25 ">
-        <div class="card">
-           <img src="img/anten.jpg" width="100%" />
-           <button class="button button-full button-clear">НАПРАВЛЕНИЯ ПОДГОТОВКИ</button>
-        </div>
+      <div class="col col-50 ">
+        <a href="#/app/vektors">
+          <div class="card">
+             <img src="img/anten.jpg" width="100%" />
+             <div class="item item-text-wrap">НАПРАВЛЕНИЯ ПОДГОТОВКИ</div>
+          </div>
+        </a>
        </div>
     </div>
     <div class="row ">
-      <div class="col col-25"></div>
-      <div class="col col-25">
+      <div class="col col-50" ng-click="window.open('http://psuti.ru/','_system')">
         <div class="card">
            <img src="img/site.jpg" width="100%" />
-           <button class="button button-full button-clear">САЙТ ВУЗА</button>
+           <div class="item item-text-wrap">САЙТ ВУЗА</div>
         </div>
       </div>
-      <div class="col col-25 ">
+      <div class="col col-50 ">
         <div class="card">
            <img src="img/profile.jpg" width="100%" />
-           <button class="button button-full button-clear">ПРОФИЛЬ</button>
+           <div class="item item-text-wrap">ПРОФИЛЬ</div>
         </div>
        </div>
     </div>
