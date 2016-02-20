@@ -185,7 +185,7 @@ angular.module('starter.controllers', [])
 })
 .controller('VektorCotroller', function($scope, $http,$cordovaNetwork,$ionicLoading){
   showLoad($ionicLoading);
-  loadUrlData($http,$cordovaNetwork,'http://abitur.psuti.ru/api/get_specialty_section_list.php',function(data){
+    loadUrlData($http,$cordovaNetwork,'http://abitur.psuti.ru/api/get_specialty_section_list.php',function(data){
     $scope.data = data;
     $ionicLoading.hide();
   });
@@ -324,7 +324,7 @@ function loadUrlData($http,$cordovaNetwork,url,callback){
 
 function showLoad($ionicLoading){
   $ionicLoading.show({
-    template: '<div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>',
+//    template: '<div class="loader"><svg class="circular"><circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div>',
     content: 'Loading',
     animation: 'fade-in',
     showBackdrop: true,
