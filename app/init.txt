@@ -3,5 +3,9 @@ cordova plugin add cordova-plugin-appavailability
 cordova plugin add com.lampa.startapp
 cordova plugin add cordova-plugin-inappbrowser
 cordova plugin add org.apache.cordova.device
+//ionic plugin add phonegap-plugin-push
+cordova plugin add de.appplant.cordova.plugin.local-notification
+
+cordova plugin add de.appplant.cordova.plugin.background-mode@0.6.3
 
 //bower install --save-dev ionic-platform-web-client

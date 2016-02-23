@@ -46,7 +46,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('NewsController', function($scope, $http,$cordovaNetwork,$ionicLoading,$ionicPopover){
+.controller('NewsController', function($scope, $http,$cordovaNetwork,$ionicLoading,$ionicPopover,$stateParams){
 
 
   var template = '<ion-popover-view><ion-header-bar>' +
@@ -107,8 +107,6 @@ angular.module('starter.controllers', [])
     showLoad($ionicLoading);
     loadUrlData($http,$cordovaNetwork,'https://abitur.psuti.ru/api/get_news_list.php?PAGEN_1=2',function(data){
 
-
-
       /*
        <div class="item">
        <h2>{{itemz.author}}</h2>
@@ -121,7 +119,6 @@ angular.module('starter.controllers', [])
        </div>
 
        </div>
-
 
        "count_pages": 29,
        "count_items": "289",
@@ -171,13 +168,21 @@ angular.module('starter.controllers', [])
       case 'fzo': $scope.newsSelected = 'ФЗО';break;
     }
   }
+
+  if ($stateParams.faculty)
+  {
+    newsSelected = $stateParams.faculty;
+  }
   if(newsSelected == 'fist'){
     $scope.newsFist();
   }else if (newsSelected  == 'fbto'){
     $scope.newsFbto();
+  }else if (newsSelected  == 'fzo') {
+    $scope.newsFzo();
   }else if(!newsSelected || newsSelected == '') {
     $scope.newsFist();
   }
+
 
   ///FBTO - http://fbto.psuti.ru/feeds/fbto.rss
   ///FIST - http://fist.psuti.ru/index.php?format=feed&type=rss
@@ -189,6 +194,11 @@ angular.module('starter.controllers', [])
     $scope.data = data;
     $ionicLoading.hide();
   });
+})
+
+
+.controller('ProfileController', function($scope, $http,$cordovaNetwork,$ionicLoading){
+
 })
 
 .controller('commisController',function($scope, $cordovaInAppBrowser){
