@@ -28,8 +28,8 @@ function notifEmmiter($cordovaLocalNotification,$cordovaNetwork,$http) {
 
 function haveNewNews($http,$cordovaNetwork,$cordovaLocalNotification,url,faculty){
   loadNews($http, $cordovaNetwork,url,function(data){
-   // if (data !=  localStorage.getItem(url))
-   // {
+    if (data !=  localStorage.getItem(url))
+    {
     if(url == 'http://fist.psuti.ru/index.php?format=feed&type=rss'){
       data.responseData.feed.entries.shift();
     }
@@ -48,6 +48,6 @@ function haveNewNews($http,$cordovaNetwork,$cordovaLocalNotification,url,faculty
               }).then(function () {
                   console.log("The notification has been set");
               });
-   // }
+    }
   });
 }
