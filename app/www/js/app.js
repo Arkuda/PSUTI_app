@@ -21,23 +21,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       cordova.plugins.Keyboard.disableScroll(true);
 
     }
+    if(window.cordova){
+      /*var push = new Ionic.Push({
+       "debug": true
+       });
+
+       push.register(function(token) {
+       console.log("Device token:",token.token);
+       });*/
+      cordova.plugins.backgroundMode.enable();
+      cordova.plugins.backgroundMode.configure({
+        silent: true
+      });
+      cordova.plugins.backgroundMode.enable();
+      cordova.plugins.backgroundMode.onactivate = function () { console.log('run notif emmiter on app.js'); notifEmmiter($cordovaLocalNotification,$cordovaNetwork,$http); };
+
+    }
     if (window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
-    /*var push = new Ionic.Push({
-      "debug": true
-    });
-
-    push.register(function(token) {
-      console.log("Device token:",token.token);
-    });*/
-    cordova.plugins.backgroundMode.enable();
-    cordova.plugins.backgroundMode.configure({
-      //silent: true
-    });
-    cordova.plugins.backgroundMode.enable();
-    cordova.plugins.backgroundMode.onactivate = function () { console.log('run notif emmiter on app.js'); notifEmmiter($cordovaLocalNotification,$cordovaNetwork,$http); };
 
 
   });

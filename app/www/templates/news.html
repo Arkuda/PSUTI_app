@@ -11,13 +11,14 @@
       <button class="button  button-stable" ng-click="">ФЗО</button>
       <button class="button  button-calm" ng-click="newsFist()">ФИСТ</button>
     </div>-->
-    <div class="list card" ng-repeat="itemz in rss">
+    <div class="card" ng-repeat="itemz in rss">
 
-      <div class="item">
+      <div class="item item-avatar">
+        <img src="http://icons.iconarchive.com/icons/icons8/ios7/512/Users-Administrator-icon.png">
         <h2>{{itemz.author}}</h2>
         <p ng-if="newsSelected != 'ФЗО'">{{itemz.publishedDate | datefilter }}</p>
         <p ng-if="newsSelected == 'ФЗО'">{{itemz.publishedDate}}</p>
-        <h3>{{itemz.title}}</h3>
+        <h2 class="item-text-wrap"><b>{{itemz.title}}</b></h2>
       </div>
 
       <div class="item item-body">

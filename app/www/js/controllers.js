@@ -86,6 +86,29 @@ angular.module('starter.controllers', [])
     loadNews($http,$cordovaNetwork,'http://fist.psuti.ru/index.php?format=feed&type=rss',function(data){
     var dataredy = data.responseData;
     dataredy.feed.entries.shift();
+
+    /*
+    for(var i = 0; i < dataredy.feed.entries.length;i++)
+    {
+      var parser=new DOMParser();
+      var htmlDoc=parser.parseFromString(txt, "text/html");
+
+      dataredy.feed.entries[i].content = "";
+      dataredy.feed.entries[i].content += htmlDoc.getElementsByTagName('img');
+
+    }*/
+    for(var i = 0; i < dataredy.feed.entries.length;i++)
+    {
+
+      dataredy.feed.entries[i].content = dataredy.feed.entries[i].content.replace(/<br*>/gi, "");
+      dataredy.feed.entries[i].content = dataredy.feed.entries[i].content.replace(/<h1*>/gi, "");
+      dataredy.feed.entries[i].content = dataredy.feed.entries[i].content.replace(/<h2*>/gi, "");
+      dataredy.feed.entries[i].content = dataredy.feed.entries[i].content.replace(/.*class="(.*?)".*/gi, "");
+      dataredy.feed.entries[i].content = dataredy.feed.entries[i].content.replace(/<p*>/gi, "");
+      dataredy.feed.entries[i].content = dataredy.feed.entries[i].content.replace(/<div>/gi, "");
+
+    }
+
     $scope.rss = dataredy.feed.entries;
 
     $ionicLoading.hide();
